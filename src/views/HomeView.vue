@@ -1,103 +1,78 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useField, useForm } from 'vee-validate'
+import { ref } from "vue";
 
-  const { handleSubmit, handleReset } = useForm({
-    validationSchema: {
-      name (value: string | any[]) {
-        if (value?.length >= 2) return true
+const form = ref({
+    email: '',
+    password: '',
+    remember: false
+});
 
-        return 'Name needs to be at least 2 characters.'
-      },
-      phone (value: string | any[]) {
-        if (value?.length > 9 && /[0-9-]+/.test(value)) return true
-
-        return 'Phone number needs to be at least 9 digits.'
-      },
-      email (value: string) {
-        if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-
-        return 'Must be a valid e-mail.'
-      },
-      select (value: any) {
-        if (value) return true
-
-        return 'Select an item.'
-      },
-      checkbox (value: string) {
-        if (value === '1') return true
-
-        return 'Must be checked.'
-      },
-    },
-  })
-  const name = useField('name')
-  const phone = useField('phone')
-  const email = useField('email')
-  const select = useField('select')
-  const checkbox = useField('checkbox')
-
-  const items = ref([
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-  ])
-
-  const submit = handleSubmit((values: any) => {
-    alert(JSON.stringify(values, null, 2))
-  })
-
-
+function submit () {
+    alert(JSON.stringify(form.value));
+}
 
 </script>
 
 <template>
-  <form @submit.prevent="submit">
-    <v-text-field
-      v-model="name.value.value"
-      :counter="10"
-      :error-messages="name.errorMessage.value"
-      label="Name"
-    ></v-text-field>
+    <div class="pa-15 pb-8">
+        <v-card class="pa-12 pb-8 mx-auto"
+        height="560"
+        width="50%"
+        elevation="16"
+        >
+        <v-card-title class="text-center"
+        style="font-size: 44px; color:blue; font-family:Georgia, 'Times New Roman', Times, serif;" 
+        >
+    <span class="headline">Login here</span>
+    </v-card-title>
 
-    <v-text-field
-      v-model="phone.value.value"
-      :counter="7"
-      :error-messages="phone.errorMessage.value"
-      label="Phone Number"
-    ></v-text-field>
+    <v-sheet class="pa-4 text-center mx-auto"
+    max-width="600"
+    rounded="lg"
+    width="100%">
+      <v-form @submit.prevent="submit">
 
-    <v-text-field
-      v-model="email.value.value"
-      :error-messages="email.errorMessage.value"
-      label="E-mail"
-    ></v-text-field>
+        <!-- TEXT FIELDS -->
+        <div class="text-subtitle-1 text-medium-emphasis text-left">Email</div>
+        <v-text-field
+          clearable
+          prepend-inner-icon="mdi-email-outline"
+          v-model="form.email"
+          label="Enter your email address"
+        ></v-text-field>
 
-    <v-select
-      v-model="select.value.value"
-      :error-messages="select.errorMessage.value"
-      :items="items"
-      label="Select"
-    ></v-select>
+        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Password</div>
+        <v-text-field
+          clearable      
+          prepend-inner-icon="mdi-lock-outline"
+          v-model="form.password"
+          type="password"
+          label="Enter your password"
+        ></v-text-field>
 
-    <v-checkbox
-      v-model="checkbox.value.value"
-      :error-messages="checkbox.errorMessage.value"
-      label="Option"
-      type="checkbox"
-      value="1"
-    ></v-checkbox>
+        <v-checkbox
+            v-model="form.remember"
+            color="red"
+            label="Remember me"
+            hide-details
+          ></v-checkbox>
+<br>
+        <v-btn class="mt-2" 
+        type="submit" 
+        color="blue"
+        size="x-large"
+        variant="tonal"
+        elevation="5"
+        block>LOG IN</v-btn>
+      </v-form>
 
-    <v-btn
-      class="me-4"
-      type="submit"
-    >
-      submit
-    </v-btn>
+      <v-card-text class="text-center">
+        <p class="text-body-2" >Don't have an account?
+            <a class="text-blue text-decoration-none" href="/register">Register</a>
+        </p>
+      </v-card-text>
 
-    <v-btn @click="handleReset">
-      clear
-    </v-btn>
-  </form>
-</template>
+    </v-sheet>
+</v-card>
+</div>
+  </template>
