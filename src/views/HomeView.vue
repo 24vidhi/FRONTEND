@@ -14,20 +14,21 @@ function submit () {
 </script>
 
 <template>
-    <div class="pa-15 pb-8">
-        <v-card class="pa-12 pb-8 mx-auto"
+    <div class="pa-2 pb-8 background-image">
+        <v-card class="pa-12 pb-8"
         height="560"
-        width="50%"
+        width="40%"
         elevation="16"
+        style="margin-left: 50px;"
         >
         <v-card-title class="text-center"
-        style="font-size: 44px; color:blue; font-family:Georgia, 'Times New Roman', Times, serif;" 
+        style="font-size: 44px; color:darkblue; font-family:Georgia, 'Times New Roman', Times, serif;" 
         >
     <span class="headline">Login here</span>
     </v-card-title>
 
     <v-sheet class="pa-4 text-center mx-auto"
-    max-width="600"
+    max-width="500"
     rounded="lg"
     width="100%">
       <v-form @submit.prevent="submit">
@@ -75,4 +76,22 @@ function submit () {
     </v-sheet>
 </v-card>
 </div>
+
   </template>
+
+<style>
+.background-image {
+  background-image: url('../assets/15.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 93vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.v-sheet {
+  width: 100%; /* Make the sheet take the full width */
+  max-width: 450px;
+}
+
+</style>
